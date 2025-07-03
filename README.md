@@ -109,3 +109,206 @@ $orders = $client->Order->getOrderList([
     'page_size' => 50,
 ]);
 ```
+
+## TypeScript Version
+
+A minimal TypeScript port is provided under `ts-src`. Build it with:
+
+```bash
+npm install
+npm run build
+```
+
+Usage example:
+
+```typescript
+import { Client, Resources } from './dist';
+
+const client = new Client(PARTNER_ID, PARTNER_KEY);
+client.setAccessToken(SHOP_ID, ACCESS_TOKEN);
+
+const products = await new Resources.Product().useApiClient(client).getItemList();
+
+// Download shipping labels using the Logistic resource
+await new Resources.Logistic().useApiClient(client).downloadShippingDocument(
+  [{ order_sn: '123', package_number: 'ABC' }],
+  'NORMAL_AIR_WAYBILL'
+);
+```
+
+The TypeScript build now includes ports of all PHP resources. They can be imported from the `Resources` namespace just like the PHP SDK.
+
+### Available TypeScript Resources
+
+Below is a list of every resource class and its methods. Each method maps to a Shopee API endpoint.
+
+- **AccountHealth**
+  - `getShopPerformance`
+  - `shopPenalty`
+  - `getMetricSourceDetail`
+  - `getPenaltyPointHistory`
+  - `getPunishmentHistory`
+  - `getListingsWithIssues`
+  - `getLateOrders`
+- **AddOnDeal**
+  - `addAddOnDeal`
+  - `addAddOnDealMainItem`
+  - `addAddOnDealSubItem`
+  - `deleteAddOnDeal`
+  - `deleteAddOnDealMainItem`
+  - `deleteAddOnDealSubItem`
+  - `getAddOnDealList`
+  - `getAddOnDeal`
+  - `getAddOnDealMainItem`
+  - `getAddOnDealSubItem`
+  - `updateAddOnDeal`
+  - `updateAddOnDealMainItem`
+  - `updateAddOnDealSubItem`
+  - `endAddOnDeal`
+- **Ads**
+  - `getTotalBalance`
+  - `getShopToggleInfo`
+  - `getRecommendedKeywordList`
+  - `getRecommendedItemList`
+  - `getAllCpcAdsHourlyPerformance`
+  - `getAllCpcAdsDailyPerformance`
+- **Authorization**
+  - `getShopsByPartner`
+  - `getMerchantsByPartner`
+  - `getToken`
+  - `refreshNewToken`
+  - `getTokenByResendCode`
+  - `getRefreshTokenByUpgradeCode`
+  - `getShopeeIpRanges`
+- **BundleDeal**
+  - `addBundleDeal`
+  - `updateBundleDeal`
+  - `endBundleDeal`
+  - `getBundleDealList`
+  - `getBundleDeal`
+  - `getBundleDealItem`
+  - `updateBundleDealItem`
+- **Chat**
+  - `getMessage`
+  - `sendMessage`
+  - `getConversationList`
+  - `getOneConversation`
+  - `deleteConversation`
+  - `getUnreadConversationCount`
+  - `pinConversation`
+  - `unpinConversation`
+  - `readConversation`
+  - `unreadConversation`
+  - `uploadImage`
+  - `sendAutoreplyMessage`
+  - `muteConversation`
+  - `deleteMessage`
+- **Discount**
+  - `addDiscount`
+  - `addDiscountItem`
+  - `deleteDiscount`
+  - `deleteDiscountItem`
+  - `getDiscount`
+  - `getDiscountList`
+  - `updateDiscount`
+  - `updateDiscountItem`
+- **FirstMile**
+  - `getShippingDocumentInfo`
+  - `downloadShippingDocument`
+- **FollowPrize**
+  - `getPrizeList`
+  - `getPrizeItem`
+  - `createPrize`
+  - `updatePrize`
+  - `deletePrize`
+- **Logistic**
+  - `getShippingParameter`
+  - `getTrackingNumber`
+  - `shipOrder`
+  - `updateShippingOrder`
+  - `getShippingDocumentParameter`
+  - `createShippingDocument`
+  - `getShippingDocumentResult`
+  - `downloadShippingDocument`
+  - `getTrackingInfo`
+  - `getAddressList`
+  - `setAddressConfig`
+  - `deleteAddress`
+  - `getChannelList`
+  - `updateChannel`
+  - `batchShipOrder`
+  - `getShippingDocumentDataInfo`
+- **MediaSpace**
+  - `uploadImage`
+  - `getImageList`
+- **Merchant**
+  - `getMerchant`
+  - `getMerchantAuthSites`
+  - `getMerchantShopList`
+- **Order**
+  - `getOrderList`
+  - `getOrderDetail`
+  - `setNote`
+  - `cancelOrder`
+  - `handleBuyerCancellation`
+  - `splitOrder`
+  - `unsplitOrder`
+  - `getEscrowList`
+  - `massGetEscrowDetails`
+  - `setInvoiceData`
+- **Payment**
+  - `getEscrowDetail`
+  - `setShopInstallmentStatus`
+  - `getShopInstallmentStatus`
+  - `getPayoutDetail`
+  - `setItemInstallmentStatus`
+  - `getItemInstallmentStatus`
+  - `getPaymentMethodList`
+  - `getWalletTransactionList`
+  - `getEscrowList`
+  - `getPayoutInfo`
+  - `getBillingTransactionInfo`
+- **Product**
+  - `getItemList`
+- **Push**
+  - `publicKey`
+  - `getWebhookInfo`
+  - `setWebhookInfo`
+- **Returns**
+  - `getReturnList`
+  - `getReturnDetail`
+  - `confirm`
+  - `dispute`
+  - `getEscalationList`
+- **Shop**
+  - `getShopInfo`
+  - `performance`
+  - `getProfile`
+  - `updateProfile`
+- **ShopCategory**
+  - `addShopCategory`
+  - `deleteShopCategory`
+  - `getShopCategoryList`
+  - `updateShopCategory`
+  - `addItemList`
+  - `deleteItemList`
+- **ShopFlashSale**
+  - `addShopFlashSale`
+  - `deleteShopFlashSale`
+  - `getShopFlashSale`
+  - `getShopFlashSaleList`
+  - `updateShopFlashSale`
+  - `addItem`
+  - `deleteItem`
+- **TopPicks**
+  - `addTopPicks`
+  - `deleteTopPicks`
+  - `updateTopPicks`
+  - `getTopPicksList`
+  - `endTopPicks`
+- **Voucher**
+  - `addVoucher`
+  - `deleteVoucher`
+  - `updateVoucher`
+  - `getVoucher`
+  - `getVoucherList`
