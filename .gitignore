@@ -1,4 +1,7 @@
 /vendor/
 /.idea/
 composer.lock
+node_modules/
+dist/
+package-lock.json
 .phpunit.result.cache
